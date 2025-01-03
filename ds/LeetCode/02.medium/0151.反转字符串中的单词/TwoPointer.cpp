@@ -22,7 +22,7 @@ public:
         s.resize(slow);
     }
 
-    string reverseWord(sting s){
+    string reverseWords(string s){
         removeExterSpace(s);
 
         reverse(s, 0, s.size() - 1);
