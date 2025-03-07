@@ -2,37 +2,37 @@
 *
 
 # ====================
-# Git相关文件
+# Git 相关文件
 # ====================
-# 基本Git配置
+# 基本 Git 配置
 !.gitignore
 !.gitattributes
 !.gitkeep
-!.gitmodules      # Git子模块配置  
-!.github/         # GitHub配置目录
-!.gitlab/         # GitLab配置目录
-!.gitlab-ci.yml   # GitLab CI配置
-!.gitea/          # Gitea配置目录
+!.gitmodules      # Git 子模块配置  
+!.github/         # GitHub 配置目录
+!.gitlab/         # GitLab 配置目录
+!.gitlab-ci.yml   # GitLab CI 配置
+!.gitea/          # Gitea 配置目录
 
 # Git Hooks 相关
 !.husky/          # Husky Git hooks
-!.githooks/       # 自定义Git hooks目录 
-!.pre-commit-config.yaml  # pre-commit配置
-!.commitlintrc    # commit消息规范配置
+!.githooks/       # 自定义 Git hooks 目录 
+!.pre-commit-config.yaml  # pre-commit 配置
+!.commitlintrc    # commit 消息规范配置
 !.commitlintrc.*  
-!.czrc            # Commitizen配置
+!.czrc            # Commitizen 配置
 !.cz-config.js
-!.gitmessage      # commit模板
+!.gitmessage      # commit 模板
 
-# CI/CD相关
-!.github/workflows/   # GitHub Actions工作流
-!.github/ISSUE_TEMPLATE/  # Issue模板
-!.github/PULL_REQUEST_TEMPLATE/  # PR模板
-!.gitlab-ci.yml      # GitLab CI配置
-!.circleci/          # CircleCI配置
-!.travis.yml         # Travis CI配置
-!Jenkinsfile         # Jenkins配置
-!azure-pipelines.yml # Azure Pipelines配置
+# CI/CD 相关
+!.github/workflows/   # GitHub Actions 工作流
+!.github/ISSUE_TEMPLATE/  # Issue 模板
+!.github/PULL_REQUEST_TEMPLATE/  # PR 模板
+!.gitlab-ci.yml      # GitLab CI 配置
+!.circleci/          # CircleCI 配置
+!.travis.yml         # Travis CI 配置
+!Jenkinsfile         # Jenkins 配置
+!azure-pipelines.yml # Azure Pipelines 配置
 
 # ====================
 # 保留源代码文件
@@ -61,6 +61,8 @@
 !*.R
 !*.dart
 !*.swift
+!*.sh             # Shell 脚本
+!Makefile         # Makefile 文件
 
 # 数据库相关
 !*.sql
@@ -72,8 +74,8 @@
 !*.mongodb
 !*.graphql
 !*.prisma
-!*.hql        # Hive查询
-!*.cypher     # Neo4j查询
+!*.hql        # Hive 查询
+!*.cypher     # Neo4j 查询
 
 # Python 项目文件
 !*.ipynb
@@ -132,7 +134,7 @@
 !*.angular
 !*.mts
 !*.cts
-!*.d.ts       # TypeScript声明文件
+!*.d.ts       # TypeScript 声明文件
 !*.js.map     # Source maps
 !*.ts.map
 
@@ -151,6 +153,7 @@
 !*.ini
 !*.env.example
 !*.properties
+!*.conf       # 通用配置文件
 
 # 文档和资源文件
 !*.md
@@ -204,7 +207,7 @@
 !cargo.toml
 !cargo.lock
 
-# TypeScript配置
+# TypeScript 配置
 !tsconfig.json
 !tsconfig.*.json
 !tslint.json
@@ -276,6 +279,7 @@ target/
 release/
 debug/
 coverage/
+coverage.lcov  # 测试覆盖率报告
 .cache/
 .temp/
 tmp/
@@ -316,7 +320,7 @@ static/dist/
 .turbo/
 .swc/
 
-# IDE和编辑器
+# IDE 和编辑器
 .vscode/
 .idea/
 .vs/
@@ -341,7 +345,6 @@ $RECYCLE.BIN/
 
 # 日志和数据文件
 *.log
-logs/
 *.dump
 *.sqlite
 *.sqlite3
@@ -381,3 +384,4 @@ logs/
 *.pid
 *.sock
 core.*
+*.prof         # 性能分析文件

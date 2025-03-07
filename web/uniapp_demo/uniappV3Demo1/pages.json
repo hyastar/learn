@@ -13,6 +13,65 @@
 				"navigationBarTitleText" : "demo",
 				"enablePullDownRefresh" : true
 			}
+		},
+		{
+			"path" : "pages/demo2/demo2",
+			"style" : 
+			{
+				"enablePullDownRefresh" : true,
+				"navigationBarTitleText" : "demo2"
+			}
+		},
+		{
+			"path" : "pages/demo3/demo3",
+			"style" : 
+			{
+				"enablePullDownRefresh" : false,
+				"navigationBarTitleText" : "demo3"
+			}
+		},
+		{
+			"path" : "pages/Demo4/Demo4",
+			"style" : 
+			{
+				"enablePullDownRefresh" : false,
+				"navigationBarTitleText" : "demo4"
+			}
+		},
+		{
+			"path" : "pages/Demo5/Demo5",
+			"style" : 
+			{
+				"navigationBarTitleText" : "demo5"
+			}
+		},
+		{
+			"path" : "pages/demo6/demo6",
+			"style" : 
+			{
+				"navigationBarTitleText" : "demo6"
+			}
+		},
+		{
+			"path" : "pages/demo7/demo7",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/demo8/demo8",
+			"style" : 
+			{
+				"navigationBarTitleText" : "demo8"
+			}
+		},
+		{
+			"path" : "pages/demo9/demo9",
+			"style" : 
+			{
+				"navigationBarTitleText" : "热梗指南"
+			}
 		}
 	],
 	"globalStyle": {
