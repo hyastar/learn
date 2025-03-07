@@ -62,7 +62,9 @@ module_init(lunar_module_init);
 
 ### 🌌 RISC-V Cosmic Architecture  
 
+
 [![RISC-V Pipeline](https://img.shields.io/badge/Architecture-5_Stage_Pipeline-blue?logo=riscv)]  
+
 
 ```verilog
 module riscv_core (
