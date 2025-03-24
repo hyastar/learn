@@ -1,0 +1,44 @@
+Date : 2025-03-24 19:06:12
+Directory : d:\information\IOT\learn\C\project\threadpool
+Total : 9 files,  1055 codes, 0 comments, 17 blanks, all 1072 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| JSON     |          3 |        902 |          0 |          0 |        902 |
+| XML      |          1 |         87 |          0 |          0 |         87 |
+| C        |          1 |         27 |          0 |          4 |         31 |
+| log      |          2 |         21 |          0 |          2 |         23 |
+| C++      |          2 |         18 |          0 |         11 |         29 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                        | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                           |          9 |      1,055 |          0 |         17 |      1,072 |
+| . (Files)                                                                                   |          4 |        132 |          0 |         15 |        147 |
+| .vs                                                                                         |          2 |         74 |          0 |          0 |         74 |
+| .vs\threadpool                                                                              |          2 |         74 |          0 |          0 |         74 |
+| .vs\threadpool\v17                                                                          |          2 |         74 |          0 |          0 |         74 |
+| obj                                                                                         |          3 |        849 |          0 |          2 |        851 |
+| obj\x64                                                                                     |          3 |        849 |          0 |          2 |        851 |
+| obj\x64\Debug                                                                               |          3 |        849 |          0 |          2 |        851 |
++---------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                    | language | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| d:\information\IOT\learn\C\project\threadpool\.vs\threadpool\v17\DocumentLayout.backup.json | JSON     |         37 |          0 |          0 |         37 |
+| d:\information\IOT\learn\C\project\threadpool\.vs\threadpool\v17\DocumentLayout.json        | JSON     |         37 |          0 |          0 |         37 |
+| d:\information\IOT\learn\C\project\threadpool\main.cpp                                      | C++      |          6 |          0 |          1 |          7 |
+| d:\information\IOT\learn\C\project\threadpool\obj\x64\Debug\iconfig.json                    | JSON     |        828 |          0 |          0 |        828 |
+| d:\information\IOT\learn\C\project\threadpool\obj\x64\Debug\threadpool.Build.CppClean.log   | log      |         12 |          0 |          1 |         13 |
+| d:\information\IOT\learn\C\project\threadpool\obj\x64\Debug\threadpool.log                  | log      |          9 |          0 |          1 |         10 |
+| d:\information\IOT\learn\C\project\threadpool\threadpool.c                                  | C        |         27 |          0 |          4 |         31 |
+| d:\information\IOT\learn\C\project\threadpool\threadpool.h                                  | C++      |         12 |          0 |         10 |         22 |
+| d:\information\IOT\learn\C\project\threadpool\threadpool.vcxproj                            | XML      |         87 |          0 |          0 |         87 |
+| Total                                                                                       |          |      1,055 |          0 |         17 |      1,072 |
++---------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

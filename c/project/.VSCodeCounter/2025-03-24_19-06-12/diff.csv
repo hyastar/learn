@@ -1,0 +1,12 @@
+"filename", "language", "C++", "C", "log", "JSON", "XML", "comment", "blank", "total"
+"d:\information\IOT\learn\C\project\MyPoorWebServer\httpd.c", "C", 0, -62, 0, 0, 0, 0, -20, -82
+"d:\information\IOT\learn\C\project\threadpool\.vs\threadpool\v17\DocumentLayout.backup.json", "JSON", 0, 0, 0, 37, 0, 0, 0, 37
+"d:\information\IOT\learn\C\project\threadpool\.vs\threadpool\v17\DocumentLayout.json", "JSON", 0, 0, 0, 37, 0, 0, 0, 37
+"d:\information\IOT\learn\C\project\threadpool\main.cpp", "C++", 6, 0, 0, 0, 0, 0, 1, 7
+"d:\information\IOT\learn\C\project\threadpool\obj\x64\Debug\iconfig.json", "JSON", 0, 0, 0, 828, 0, 0, 0, 828
+"d:\information\IOT\learn\C\project\threadpool\obj\x64\Debug\threadpool.Build.CppClean.log", "log", 0, 0, 12, 0, 0, 0, 1, 13
+"d:\information\IOT\learn\C\project\threadpool\obj\x64\Debug\threadpool.log", "log", 0, 0, 9, 0, 0, 0, 1, 10
+"d:\information\IOT\learn\C\project\threadpool\threadpool.c", "C", 0, 27, 0, 0, 0, 0, 4, 31
+"d:\information\IOT\learn\C\project\threadpool\threadpool.h", "C++", 12, 0, 0, 0, 0, 0, 10, 22
+"d:\information\IOT\learn\C\project\threadpool\threadpool.vcxproj", "XML", 0, 0, 0, 0, 87, 0, 0, 87
+"Total", "-", 18, -35, 21, 902, 87, 0, -3, 990
