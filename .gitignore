@@ -186,6 +186,46 @@
 !browserconfig.xml
 
 # ====================
+# STM32/嵌入式开发相关
+# ====================
+
+# STM32CubeMX 生成的文件
+!*.ioc            # STM32CubeMX 项目配置文件
+
+# Keil uVision 项目文件 (需要保留)
+!*.uvprojx        # uVision 项目文件
+!*.uvoptx         # uVision 选项文件 (可选，包含用户设置)
+!*.uvguix.*       # uVision GUI 配置文件 (可选，包含界面布局)
+
+# 启动文件和系统文件
+!startup_*.s      # 启动文件
+!startup_*.S
+!system_*.c       # 系统配置文件
+!system_*.h
+
+# 链接脚本
+!*.ld             # GCC 链接脚本
+!*.sct            # Keil 分散加载文件
+!*.icf            # IAR 链接脚本
+
+# 嵌入式库文件 (如果需要版本控制)
+# !Drivers/        # HAL/LL 驱动库
+# !Middlewares/    # 中间件
+
+# FreeRTOS 相关
+!FreeRTOSConfig.h # FreeRTOS 配置文件
+
+# 硬件抽象层配置
+!*_hal_conf.h     # HAL 配置文件
+!*_it.h           # 中断处理头文件
+!*_it.c           # 中断处理源文件
+!main.h
+!main.c
+
+# 保留目录结构
+!*/
+
+# ====================
 # 配置文件
 # ====================
 
@@ -264,12 +304,40 @@
 !fly.toml
 !now.json
 
-# 保留目录结构
-!*/
-
 # ====================
 # 忽略规则
 # ====================
+
+# STM32/Keil 编译输出 (忽略这些中间文件)
+Objects/          # Keil 编译输出目录
+RTE/              # Runtime Environment (运行时环境配置，自动生成)
+Listings/         # Keil 汇编列表文件目录
+DebugConfig/      # 调试配置目录
+*.axf             # Keil 可执行文件
+*.hex             # Intel HEX 文件 (通常也会忽略，除非需要发布)
+*.bin             # 二进制文件 (通常也会忽略，除非需要发布)
+*.elf             # ELF 可执行文件
+*.map             # 内存映射文件
+*.lst             # 汇编列表文件
+*.o               # 目标文件
+*.obj             # 目标文件
+*.d               # 依赖文件
+*.crf             # Cross Reference 文件
+*.htm             # Keil 生成的HTML报告
+*.dep             # 依赖文件
+*.i               # 预处理文件
+*.s               # 临时汇编文件 (保留真正的启动文件 startup_*.s)
+*.build_log.htm   # 构建日志
+*.scvd            # 系统查看器配置
+
+# IAR 相关忽略
+*.eww             # IAR workspace
+*.ewd             # IAR 调试配置
+*.ewp             # IAR 项目文件
+Debug/            # IAR Debug 目录
+Release/          # IAR Release 目录
+*.pbi             # IAR 项目信息
+*.pbd             # IAR 项目数据库
 
 # 编译输出和缓存
 dist/
@@ -321,7 +389,7 @@ static/dist/
 .swc/
 
 # IDE 和编辑器
-.vscode/
+.vscode/          # 保留 VS Code 配置
 .idea/
 .vs/
 *.sublime-*
