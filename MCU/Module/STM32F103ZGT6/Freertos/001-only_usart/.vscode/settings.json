@@ -1,0 +1,49 @@
+{
+    "files.associations": {
+        "usart.h": "c",
+        "*.h": "c",
+        "algorithm": "c",
+        "format": "c"
+    },
+
+    // --- C/C++ 扩展设置 ---
+    "C_Cpp.intelliSenseEngine": "default",
+
+    // 【关键】开启错误提示（红色波浪线）
+    // This setting enables the red squiggles for syntax errors.
+    "C_Cpp.errorSquiggles": "enabled",
+
+    // 【关键】禁用 C/C++ 扩展的自动完成建议
+    // This setting disables the autocompletion list from the C/C++ extension.
+    "C_Cpp.autocomplete": "disabled", 
+
+
+    // --- VS Code 编辑器核心设置 (保持禁用) ---
+
+    // 1. 关闭“快速建议”：在你输入时自动弹出的建议窗口
+    "editor.quickSuggestions": {
+        "other": false,
+        "comments": false,
+        "strings": false
+    },
+    // 2. 关闭“悬停提示”：鼠标放上去时显示的提示信息
+    "editor.hover.enabled": false,
+
+    // 3. 关闭“参数提示”：输入函数和括号时显示的参数信息
+    "editor.parameterHints.enabled": false,
+
+    // 4. 关闭由触发字符（如 . -> 等）激活的建议
+    "editor.suggestOnTriggerCharacters": false,
+
+    // 5. 关闭基于文本的单词建议
+    "editor.wordBasedSuggestions": "off",
+
+    // 6. 禁用代码片段的显示
+    "editor.suggest.showSnippets": false,
+    
+// 7. 开启自动闭合括号和引号 (推荐设置)
+    "editor.autoClosingBrackets": "languageDefined",
+    "editor.autoClosingQuotes": "languageDefined",
+    "editor.autoSurround": "languageDefined",
+    "cmake.sourceDirectory": "E:/Coding/learn/MCU/BlueSound_Smart_Hub/Middlewares/FreeRTOS/include"
+}

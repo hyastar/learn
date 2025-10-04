@@ -1,0 +1,11 @@
+{
+  "name": "uniappdemo3",
+  "version": "1.0.0",
+  "dependencies": {
+    "unplugin-auto-import": "0.17.3"
+  },
+  "overrides": {
+    "unimport": "3.7.1"
+  }
+}
+
