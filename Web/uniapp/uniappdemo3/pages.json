@@ -38,7 +38,8 @@
 			"path" : "pages/requestDemo/requestDemo",
 			"style" : 
 			{
-				"navigationBarTitleText" : "request"
+				"navigationBarTitleText" : "request",
+				"enablePullDownRefresh": true
 			}
 		}
 	],
@@ -47,7 +48,7 @@
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "kato",
 		"backgroundColor": "#ccc",
-		"backgroundTextStyle": "light",
+		"backgroundTextStyle": "dark",
 		"onReachBottomDistance": 50
 	},
 	"tabBar": {
