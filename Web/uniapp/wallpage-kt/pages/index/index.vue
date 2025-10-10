@@ -1,27 +1,26 @@
 <template>
-	<view class="homeLayout">
+	<view class="homeLayout pageBg">
+		<custom-nav-bar title="加藤惠"></custom-nav-bar>
 		<view class="banner">
 			<swiper indicator-dots indicator-color="rgba(255,255,255,0.5)" indicator-active-color="#fff"
 			autoplay circular>
-				<swiper-item>
-					<image src="/common/images/banner1.jpg" mode="aspectFill"></image>
-				</swiper-item>
-				<swiper-item>
-					<image src="/common/images/banner2.jpg" mode="aspectFill"></image>
-				</swiper-item>
-				<swiper-item>
-					<image src="/common/images/banner3.jpg" mode="aspectFill"></image>
+				<swiper-item v-for="item in bannerList" :key="item._id">
+					<image :src="item.picurl" mode="aspectFill"></image>
 				</swiper-item>
 			</swiper>
 		</view>
 		<view class="notice">
 			<view class="left">
-				<uni-icons type="sound-filled" size="20" color="#28b389"></uni-icons>
+				<uni-icons type="sound-filled" size="20"></uni-icons>
 				<text class="text">公告</text>
 			</view>
 			<view class="center">	
 					<swiper vertical autoplay interval="1500" duration="300" circular>
-						<swiper-item v-for="item in 4">爱睡觉的八十分v额外负担二姐夫根本文化</swiper-item>
+						<swiper-item v-for="item in noticeList" :key="item._id">
+							<navigator url="/pages/notice/detail">
+								{{item.title}}
+							</navigator>
+						</swiper-item>
 					</swiper>
 			</view>
 			<view class="right">
@@ -30,32 +29,32 @@
 		</view>
 		<view class="select">
 			<common-title>
-				<template #name>每日推荐</template>
+				<template #name><text>每日推荐</text></template>
 				<template #custom>
 					<view class="data">
-						<uni-icons type="calendar" size="20" color="#28b389"></uni-icons>
+						<uni-icons type="calendar" size="20"></uni-icons>
 						<uni-dateformat :date="Date.now()" format="MM月dd日"></uni-dateformat>
 					</view>
 				</template>
 			</common-title>
 			<view class="content">
 				<scroll-view scroll-x>
-					<view class="box" v-for="item in 8">
-						<image src="/common/images/preview_small.webp" mode="aspectFill"></image>
+					<view class="box" v-for="item in randomList" :key="item._id" @click="goPreview">
+						<image :src="item.smallPicurl" mode="aspectFill"></image>
 					</view>
 				</scroll-view>
 			</view>
 		</view>
 		<view class="theme">
 			<common-title>
-				<template #name>专题精选</template>
+				<template #name><text>专题精选</text></template>
 				<template #custom>
-					<navigator url="" class="more">More+</navigator>
+					<navigator url="" class="more"><text>More+</text></navigator>
 				</template>
 			</common-title>
 			
 			<view class="content">
-				<theme-item v-for="item in 8"></theme-item>
+				<theme-item v-for="item in classifyList" :key="item._id" :item="item"></theme-item>
 				<theme-item :isMore="true"></theme-item>
 			</view>
 		</view>
@@ -63,7 +62,42 @@
 </template>
 
 <script setup>
+import {ref} from 'vue';
+import {apiGetBanner,apiGetDayRandom,apiGetNotice,apiGetClassify} from "@/api/apis.js"
 
+const bannerList = ref([])
+const randomList = ref([])
+const noticeList = ref([])
+const classifyList = ref([])
+
+const getBanner = async()=>{
+	let res = await apiGetBanner();
+	bannerList.value = res.data
+}
+const getDayRandom = async()=>{
+	let res = await apiGetDayRandom();
+	randomList.value = res.data
+}
+const getNotice = async()=>{
+	let res = await apiGetNotice({select:true});
+	noticeList.value = res.data
+}
+const getClassify = async()=>{
+	let res = await apiGetClassify({select:true});	
+	classifyList.value = res.data
+	console.log(res);
+}
+
+const goPreview = ()=>{
+	uni.navigateTo({
+		url:"/pages/preview/preview"
+	})	
+}
+
+getBanner();
+getDayRandom();
+getNotice();
+getClassify();
 </script>
 
 <style lang="scss">
@@ -99,8 +133,13 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			:deep(){
+			.uni-icons{
+				color: $brand-theme-color !important;				
+				}
+			}
 			.text{
-				color: #28b289;
+				color: $brand-theme-color;
 				font-weight: 600;
 				font-size: 28rpx;
 			}
@@ -129,9 +168,14 @@
 	.select{
 		padding-top: 50rpx;
 		.data{
-			color: #28b389;
+			color: $brand-theme-color;
 			display: flex;
 			align-items: center;
+			:deep(){
+			.uni-icons{
+				color: $brand-theme-color !important;				
+				}
+			}
 			.text{
 				margin-left: 5rpx;
 			}

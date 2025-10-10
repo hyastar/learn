@@ -45,5 +45,6 @@
     "editor.autoClosingBrackets": "languageDefined",
     "editor.autoClosingQuotes": "languageDefined",
     "editor.autoSurround": "languageDefined",
-    "cmake.sourceDirectory": "E:/Coding/learn/MCU/BlueSound_Smart_Hub/Middlewares/FreeRTOS/include"
+    "cmake.sourceDirectory": "E:/Coding/learn/MCU/BlueSound_Smart_Hub/Middlewares/FreeRTOS/include",
+    "cmake.ignoreCMakeListsMissing": true
 }

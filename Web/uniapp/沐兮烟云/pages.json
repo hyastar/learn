@@ -1,0 +1,72 @@
+{
+	"pages": [ // pages数组中第一项表示应用启动页
+		{
+			"path": "pages/connect/connect",
+			"style": {
+				"navigationBarTitleText": "连接"
+			}
+		},
+		{
+			"path": "pages/control/control",
+			"style": {
+				"navigationBarTitleText": "控制"
+			}
+		},
+		{
+			"path": "pages/data/data",
+			"style": {
+				"navigationBarTitleText": "数据"
+			}
+		},
+		{
+			"path": "pages/log/log",
+			"style": {
+				"navigationBarTitleText": "日志"
+			}
+		},
+		{
+			"path": "pages/settings/settings",
+			"style": {
+				"navigationBarTitleText": "设置"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "沐兮烟云", // 在这里可以把uni-app改成您的App名称
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"list": [{
+				"text": "连接",
+				"pagePath": "pages/connect/connect",
+				"iconPath": "/static/images/tabBar/home.png",
+				"selectedIconPath": "/static/images/tabBar/home-h.png"
+				
+			}, {
+				"text": "控制",
+				"pagePath": "pages/control/control",
+				"iconPath": "/static/images/tabBar/home.png",
+				"selectedIconPath": "/static/images/tabBar/home-h.png"
+				
+			}, {
+				"text": "数据",
+				"pagePath": "pages/data/data",
+				"iconPath": "/static/images/tabBar/home.png",
+				"selectedIconPath": "/static/images/tabBar/home-h.png"
+			}, {
+				"text": "日志",
+				"pagePath": "pages/log/log",
+				"iconPath": "/static/images/tabBar/home.png",
+				"selectedIconPath": "/static/images/tabBar/home-h.png"			
+			}, {
+				"text": "设置",
+				"pagePath": "pages/settings/settings",
+				"iconPath": "/static/images/tabBar/home.png",
+				"selectedIconPath": "/static/images/tabBar/home-h.png"
+			}
+		]
+	},
+	"uniIdRouter": {}
+}

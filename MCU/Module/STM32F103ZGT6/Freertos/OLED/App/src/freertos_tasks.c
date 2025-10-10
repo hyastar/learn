@@ -4,52 +4,50 @@
 #include <stdio.h>
 #include <string.h>
 
-// --- °üº¬ËùÓĞĞèÒªÓÃµ½µÄÍâÉèÇı¶¯Í·ÎÄ¼ş ---
 #include "user_config.h"
 #include "bsp_led.h"
 #include "bsp_oled.h"
-#include "bsp_timer.h" // <--- Ìí¼ÓÄúµÄ¶¨Ê±Æ÷Í·ÎÄ¼ş
+#include "bsp_timer.h" 
+#include "bsp_ble.h" // <--- åŒ…å«è“ç‰™é©±åŠ¨å¤´æ–‡ä»¶
 
-//============ ÈÎÎñ¶¨Òå ============//
-// --- ÆğÊ¼ÈÎÎñ ---
 #define START_TASK_STACK         128
 #define START_TASK_PRIORITY      1
 static void start_task(void *pvParameters);
 
-// --- LEDĞÄÌøÈÎÎñ ---
+
 #define LED_TASK_STACK           64
 #define LED_TASK_PRIORITY        2
 static void led_task(void *pvParameters);
 
-// --- OLEDÏÔÊ¾ÈÎÎñ ---
+
 #define OLED_TASK_STACK          128
 #define OLED_TASK_PRIORITY       2
 static void oled_task(void *pvParameters);
 
-// --- ´®¿Ú´òÓ¡ÈÎÎñ ---
-#define PRINTF_TASK_STACK        256
-#define PRINTF_TASK_PRIORITY     3
-static void printf_task(void *pvParameters);
+// --- æ–°å¢BLEä»»åŠ¡å®šä¹‰ ---
+#define BLE_TASK_STACK           256
+#define BLE_TASK_PRIORITY        3
+static void ble_task(void *pvParameters);
+// --- ç»“æŸ ---
 
 
-//============ ÈÎÎñÊµÏÖ ============//
 
-// --- ÆğÊ¼ÈÎÎñÊµÏÖ ---
+// --- æ–°å¢å…¨å±€å˜é‡ï¼Œç”¨äºä»ble_taskå‘oled_taskä¼ é€’æ•°æ® ---
+char g_oled_ble_line[32] = "BLE: Waiting...";
+// --- ç»“æŸ ---
+
+
 static void start_task(void *pvParameters)
 {
     printf("Start Task: Initializing hardware and creating tasks...\r\n");
 
-    // --- ³õÊ¼»¯ËùÓĞÓ¦ÓÃÏà¹ØµÄÓ²¼ş ---
-    User_Config_Init(); // ³õÊ¼»¯OLEDµÄI2CÒı½Å
-    LED_Init();         // ³õÊ¼»¯LED
-    OLED_Config();      // ³õÊ¼»¯OLEDÆÁÄ»
+    User_Config_Init(); 
+    LED_Init();        
+    OLED_Config();      
     
-    // µ÷ÓÃÄú×Ô¼ºµÄÍ¨ÓÃ¶¨Ê±Æ÷³õÊ¼»¯º¯Êı
-    // Ëü»áÍ¬Ê±³õÊ¼»¯TIM2(ÓÃÓÚFreeRTOSÍ³¼Æ)ºÍTIM3
     General_Timer_Init();
     printf("General Timer (TIM2 for stats, TIM3.c for app) initialized.\r\n");
     
-    // --- ´´½¨ÆäËûÈÎÎñ ---
     taskENTER_CRITICAL();
 
     xTaskCreate(led_task, "led_task", LED_TASK_STACK, NULL, LED_TASK_PRIORITY, NULL);
@@ -58,8 +56,12 @@ static void start_task(void *pvParameters)
     xTaskCreate(oled_task, "oled_task", OLED_TASK_STACK, NULL, OLED_TASK_PRIORITY, NULL);
     printf("Task 'oled_task' created.\r\n");
 
-    xTaskCreate(printf_task, "printf_task", PRINTF_TASK_STACK, NULL, PRINTF_TASK_PRIORITY, NULL);
-    printf("Task 'printf_task' created.\r\n");
+    // --- æ–°å¢: åˆ›å»ºBLEä»»åŠ¡ ---
+    xTaskCreate(ble_task, "ble_task", BLE_TASK_STACK, NULL, BLE_TASK_PRIORITY, NULL);
+    printf("Task 'ble_task' created.\r\n");
+    // --- ç»“æŸ ---
+
+
 
     taskEXIT_CRITICAL();
 
@@ -67,56 +69,91 @@ static void start_task(void *pvParameters)
     vTaskDelete(NULL);
 }
 
-// --- LEDĞÄÌøÈÎÎñÊµÏÖ ---
+
 static void led_task(void *pvParameters)
 {
     for (;;)
     {
-        LED0_Toggle(); // ¼ÙÉèÄãÓĞÒ»¸öLED0_Toggleº¯Êı
+        LED0_Toggle(); 
         vTaskDelay(pdMS_TO_TICKS(500));
     }
 }
 
-// --- OLEDÏÔÊ¾ÈÎÎñÊµÏÖ ---
+#define LINE_CHARS 16   // æ¯è¡Œå­—ç¬¦æ•°ï¼ˆ128px / å­—ä½“å®½åº¦ï¼‰
 static void oled_task(void *pvParameters)
 {
     uint32_t counter = 0;
     char buffer[32];
 
+    // å¼€æœºæ¸…ä¸€æ¬¡å±ï¼ˆå¯é€‰ï¼‰
+    OLED_Clear(0x00);
+
     for (;;)
     {
-        sprintf(buffer, "Counter: %lu", counter++);
-        
-        OLED_ShowString(0, 0, (uint8_t*)"FreeRTOS Running");
-        OLED_ShowString(2, 0, (uint8_t*)buffer);
-        OLED_ShowString(4, 0, (uint8_t*)"SCL: PG14");
-        OLED_ShowString(6, 0, (uint8_t*)"SDA: PG15");
+        // 1) æ›´æ–°è®¡æ•°ï¼ˆç¬¬1è¡Œï¼‰
+        sprintf(buffer, "Count: %lu", counter++);
+        OLED_ShowString(0, 0, (uint8_t*)buffer);
 
-        vTaskDelay(pdMS_TO_TICKS(1000));
+        // 2) å›ºå®šæ ‡é¢˜ï¼ˆç¬¬2è¡Œï¼‰
+        OLED_ShowString(2, 0, (uint8_t*)"BLE Recv:");
+
+        // 3) è¯»å–å…¨å±€ BLE ç¼“å†²åˆ°æœ¬åœ°ï¼ˆä¿æŒå¹¶å‘å®‰å…¨ï¼‰
+        char local_ble[33]; // æ”¯æŒæœ€å¤š32å­—èŠ‚å­—ç¬¦ä¸²
+        strncpy(local_ble, g_oled_ble_line, sizeof(local_ble)-1);
+        local_ble[sizeof(local_ble)-1] = '\0';
+
+        // 4) å°† local_ble æ‹†æˆä¸¤è¡Œï¼Œæ¯è¡Œ LINE_CHARS ä¸ªå­—ç¬¦
+        char line1[LINE_CHARS + 1];
+        char line2[LINE_CHARS + 1];
+
+        // æ¸…é›¶
+        memset(line1, 0, sizeof(line1));
+        memset(line2, 0, sizeof(line2));
+
+        // æ‹·è´ç¬¬ä¸€æ®µ
+        strncpy(line1, local_ble, LINE_CHARS);
+        // æ‹·è´ç¬¬äºŒæ®µï¼ˆå¦‚æœæœ‰ï¼‰
+        if (strlen(local_ble) > LINE_CHARS) {
+            strncpy(line2, local_ble + LINE_CHARS, LINE_CHARS);
+        } else {
+            line2[0] = '\0';
+        }
+
+        // 5) ç”¨ç©ºæ ¼å¡«æ»¡æ¯è¡Œï¼Œä¿è¯è¦†ç›–è€å†…å®¹ï¼ˆ%-*sï¼šå·¦å¯¹é½ï¼Œç©ºæ ¼è¡¥é½ï¼‰
+        char disp1[LINE_CHARS + 1];
+        char disp2[LINE_CHARS + 1];
+        snprintf(disp1, sizeof(disp1), "%-*s", LINE_CHARS, line1);
+        snprintf(disp2, sizeof(disp2), "%-*s", LINE_CHARS, line2);
+
+        // 6) æ˜¾ç¤ºåˆ° OLEDï¼ˆç¬¬3è¡Œ page=4ï¼Œç¬¬4è¡Œ page=6ï¼‰
+        OLED_ShowString(4, 0, (uint8_t*)disp1);
+        OLED_ShowString(6, 0, (uint8_t*)disp2);
+
+        vTaskDelay(pdMS_TO_TICKS(500));
     }
 }
 
-// --- ´®¿Ú´òÓ¡ÈÎÎñÊµÏÖ ---
-static void printf_task(void *pvParameters)
+
+
+// --- ç»“æŸä¿®æ”¹ ---
+
+// --- æ–°å¢ ble_task ä»»åŠ¡å‡½æ•°å®ç° ---
+static void ble_task(void *pvParameters)
 {
-    char stats_buffer[512];
+    // åˆå§‹åŒ–è“ç‰™æ¨¡å— (åŒ…æ‹¬å…¶å†…éƒ¨çš„ä¸²å£é©±åŠ¨å’ŒATæŒ‡ä»¤é…ç½®)
+    BLE_Init();
 
     for (;;)
     {
-        vTaskDelay(pdMS_TO_TICKS(5000));
-
-        printf("---------------------------------------------------\r\n");
-        printf("Task Name\tStatus\tPrio\tStack\tTask#\tCPU Usage\r\n");
+        // å¾ªç¯å¤„ç†æ¥æ”¶åˆ°çš„æ•°æ®
+        BLE_Process_RX_Data();
         
-        vTaskList(stats_buffer);
-        printf("%s\r\n", stats_buffer);
-        
-        printf("---------------------------------------------------\r\n");
+        // æŒ‚èµ·ä»»åŠ¡ï¼Œè®©å‡ºCPUç»™å…¶ä»–ä»»åŠ¡
+        vTaskDelay(pdMS_TO_TICKS(50));
     }
 }
+// --- ç»“æŸ ---
 
-
-//============ ¹«¹²APIº¯ÊıÊµÏÖ ============//
 
 void freertos_start(void)
 {
@@ -124,6 +161,5 @@ void freertos_start(void)
     vTaskStartScheduler();
 }
 
-// Tickless Idle Ä£Ê½ĞèÒªµÄ»Øµ÷º¯Êı (±£³Ö¿Õ¼´¿É)
 void PRE_SLEEP_PROCESSING(void) {}
 void POST_SLEEP_PROCESSING(void) {}

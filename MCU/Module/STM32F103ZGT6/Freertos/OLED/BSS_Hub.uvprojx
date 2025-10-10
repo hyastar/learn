@@ -440,11 +440,6 @@
               <FilePath>.\Bsp\src\bsp_dma.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_esp8266.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Bsp\src\bsp_esp8266.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_mq5.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Bsp\src\bsp_mq5.c</FilePath>
@@ -468,6 +463,11 @@
               <FileName>bsp_photo.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Bsp\src\bsp_photo.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_ble.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Bsp\src\bsp_ble.c</FilePath>
             </File>
           </Files>
         </Group>
